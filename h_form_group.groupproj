@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{66CAFCC8-8277-443C-963D-9FA59DE098CD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="hahahasublib\hahahasublib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="hahahasub2lib\hahahasub2lib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="h_form\h_form.cbproj">
+            <Dependencies>hahahasublib\hahahasublib.cbproj;hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="hahahadll\hahahadll.cbproj">
+            <Dependencies>hahahasublib\hahahasublib.cbproj;hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="hohohodll\hohohodll.cbproj">
+            <Dependencies>hahahasublib\hahahasublib.cbproj;hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="hahahasublib">
+        <MSBuild Projects="hahahasublib\hahahasublib.cbproj"/>
+    </Target>
+    <Target Name="hahahasublib:Clean">
+        <MSBuild Projects="hahahasublib\hahahasublib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahasublib:Make">
+        <MSBuild Projects="hahahasublib\hahahasublib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hahahasub2lib">
+        <MSBuild Projects="hahahasub2lib\hahahasub2lib.cbproj"/>
+    </Target>
+    <Target Name="hahahasub2lib:Clean">
+        <MSBuild Projects="hahahasub2lib\hahahasub2lib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahasub2lib:Make">
+        <MSBuild Projects="hahahasub2lib\hahahasub2lib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="h_form" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="h_form\h_form.cbproj"/>
+    </Target>
+    <Target Name="h_form:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="h_form\h_form.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="h_form:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="h_form\h_form.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hahahadll" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="hahahadll\hahahadll.cbproj"/>
+    </Target>
+    <Target Name="hahahadll:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="hahahadll\hahahadll.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahadll:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="hahahadll\hahahadll.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hohohodll" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="hohohodll\hohohodll.cbproj"/>
+    </Target>
+    <Target Name="hohohodll:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="hohohodll\hohohodll.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hohohodll:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="hohohodll\hohohodll.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="hahahasublib;hahahasub2lib;h_form;hahahadll;hohohodll"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="hahahasublib:Clean;hahahasub2lib:Clean;h_form:Clean;hahahadll:Clean;hohohodll:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="hahahasublib:Make;hahahasub2lib:Make;h_form:Make;hahahadll:Make;hohohodll:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

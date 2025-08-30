@@ -1,0 +1,132 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{66CAFCC8-8277-443C-963D-9FA59DE098CD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\..\hahahasublib\hahahasublib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\hahahasub2lib\hahahasub2lib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\h_form\h_form.cbproj">
+            <Dependencies>..\..\hahahasublib\hahahasublib.cbproj;..\..\hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="..\..\hahahadll\hahahadll.cbproj">
+            <Dependencies>..\..\hahahasublib\hahahasublib.cbproj;..\..\hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="..\..\hehehedll\hehehedll.cbproj">
+            <Dependencies>..\..\hahahasublib\hahahasublib.cbproj;..\..\hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="..\..\hohohodll\hohohodll.cbproj">
+            <Dependencies>..\..\hahahasublib\hahahasublib.cbproj;..\..\hahahasub2lib\hahahasub2lib.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="dll_hehehe\dll_hehehe.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dll_form\dll_form.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dll_monitor\dll_monitor.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="hahahasublib">
+        <MSBuild Projects="..\..\hahahasublib\hahahasublib.cbproj"/>
+    </Target>
+    <Target Name="hahahasublib:Clean">
+        <MSBuild Projects="..\..\hahahasublib\hahahasublib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahasublib:Make">
+        <MSBuild Projects="..\..\hahahasublib\hahahasublib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hahahasub2lib">
+        <MSBuild Projects="..\..\hahahasub2lib\hahahasub2lib.cbproj"/>
+    </Target>
+    <Target Name="hahahasub2lib:Clean">
+        <MSBuild Projects="..\..\hahahasub2lib\hahahasub2lib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahasub2lib:Make">
+        <MSBuild Projects="..\..\hahahasub2lib\hahahasub2lib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="h_form" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="..\..\h_form\h_form.cbproj"/>
+    </Target>
+    <Target Name="h_form:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="..\..\h_form\h_form.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="h_form:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="..\..\h_form\h_form.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hahahadll" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="..\..\hahahadll\hahahadll.cbproj"/>
+    </Target>
+    <Target Name="hahahadll:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="..\..\hahahadll\hahahadll.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hahahadll:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="..\..\hahahadll\hahahadll.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hehehedll" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="..\..\hehehedll\hehehedll.cbproj"/>
+    </Target>
+    <Target Name="hehehedll:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="..\..\hehehedll\hehehedll.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hehehedll:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="..\..\hehehedll\hehehedll.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="hohohodll" DependsOnTargets="hahahasublib;hahahasub2lib">
+        <MSBuild Projects="..\..\hohohodll\hohohodll.cbproj"/>
+    </Target>
+    <Target Name="hohohodll:Clean" DependsOnTargets="hahahasublib:Clean;hahahasub2lib:Clean">
+        <MSBuild Projects="..\..\hohohodll\hohohodll.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="hohohodll:Make" DependsOnTargets="hahahasublib:Make;hahahasub2lib:Make">
+        <MSBuild Projects="..\..\hohohodll\hohohodll.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll_hehehe">
+        <MSBuild Projects="dll_hehehe\dll_hehehe.cbproj"/>
+    </Target>
+    <Target Name="dll_hehehe:Clean">
+        <MSBuild Projects="dll_hehehe\dll_hehehe.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll_hehehe:Make">
+        <MSBuild Projects="dll_hehehe\dll_hehehe.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll_form">
+        <MSBuild Projects="dll_form\dll_form.cbproj"/>
+    </Target>
+    <Target Name="dll_form:Clean">
+        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll_form:Make">
+        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll_monitor">
+        <MSBuild Projects="dll_monitor\dll_monitor.cbproj"/>
+    </Target>
+    <Target Name="dll_monitor:Clean">
+        <MSBuild Projects="dll_monitor\dll_monitor.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll_monitor:Make">
+        <MSBuild Projects="dll_monitor\dll_monitor.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="hahahasublib;hahahasub2lib;h_form;hahahadll;hehehedll;hohohodll;dll_hehehe;dll_form;dll_monitor"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="hahahasublib:Clean;hahahasub2lib:Clean;h_form:Clean;hahahadll:Clean;hehehedll:Clean;hohohodll:Clean;dll_hehehe:Clean;dll_form:Clean;dll_monitor:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="hahahasublib:Make;hahahasub2lib:Make;h_form:Make;hahahadll:Make;hehehedll:Make;hohohodll:Make;dll_hehehe:Make;dll_form:Make;dll_monitor:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
