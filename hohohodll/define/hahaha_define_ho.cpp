@@ -74,11 +74,11 @@ int Initial_Environment(hahaha::hahaha_post_package& input,
 {
     std::vector<void*>& objects_ = input.Objects_;
 
-    ha::Structure_Main_ = (hahaha::hahaha_structure_main*)objects_[0];
-    ha::Structure_Sub_ = (hahaha::hahaha_structure_sub*)objects_[1];
-    ha::Pointer_Main_ = (hahaha::hahaha_pointer_main*)objects_[2];
-    ha::Pointer_Sub_ = (hahaha::hahaha_pointer_sub*)objects_[3];
-    //
+	ha::Structure_Main_ = (hahaha::hahaha_structure_main*)objects_[0];
+	ha::Structure_Sub_ = (hahaha::hahaha_structure_sub*)objects_[1];
+	ha::Pointer_Main_ = (hahaha::hahaha_pointer_main*)objects_[2];
+	ha::Pointer_Sub_ = (hahaha::hahaha_pointer_sub*)objects_[3];
+	//
 
 
     return 0;
@@ -125,11 +125,11 @@ int Initial()
 
     //
 
-    ha::Structure_Main_->Factory_Processing_Unit_Bases_[ha_def::factory_processing_unit_base::HA] = Factory_Processing_Unit_Base_Ha_.get();
+	ha::Structure_Main_->Factory_Processing_Unit_Bases_[ha_def::factory_processing_unit_base::HA] = Factory_Processing_Unit_Base_Ha_.get();
     ha::Structure_Main_->Factory_Processing_Unit_Regions_[ha_def::factory_processing_unit_region::HA] = Factory_Processing_Unit_Region_Ha_.get();
     ha::Structure_Main_->Factory_Processing_Unit_Strategys_[ha_def::factory_processing_unit_strategy::HA] = Factory_Processing_Unit_Strategy_Ha_.get();
 
-    ha::Form_Popup_View_Popup_Item_->box_item->Parent = ha::Structure_Main_->Form_Popup_View_Popup_->box_main_list_1;
+	ha::Form_Popup_View_Popup_Item_->box_item->Parent = ha::Structure_Main_->Form_Popup_View_Popup_->box_main_list_1;
     ha::Form_Popup_View_Popup_Item_->box_item->Align = alTop;
     ha::Form_Popup_View_Popup_Item_->box_item->Height = 66;
 
@@ -155,8 +155,8 @@ int Initial()
 
     Form_Processing_Unit_Strategy_Image_->main_box->Parent = ha::Structure_Main_->Form_Popup_View_Popup_Setting_->box_processing_unit_strategy;
     Form_Processing_Unit_Strategy_Image_->main_box->Align = alClient;
-    Form_Processing_Unit_Strategy_Image_->main_box->Visible = false;
-    //
+	Form_Processing_Unit_Strategy_Image_->main_box->Visible = false;
+	//
     // 處理參數用
     ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Form_Bases_[ha_def::processing_unit_base::BASE] = Form_Processing_Unit_Base_Base_.get();
     ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Form_Regions_[ha_def::processing_unit_region::RECTANGLE] = Form_Processing_Unit_Region_Rectangle_.get();
@@ -168,7 +168,7 @@ int Initial()
     ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Page_Bases_[ha_def::processing_unit_base::BASE] = Form_Processing_Unit_Base_Base_->main_box;
     ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Page_Regions_[ha_def::processing_unit_region::RECTANGLE] = Form_Processing_Unit_Region_Rectangle_->main_box;
     ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Page_Strategys_[ha_def::processing_unit_strategy::TEXT] = Form_Processing_Unit_Strategy_Text_->main_box;
-    ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Page_Strategys_[ha_def::processing_unit_strategy::IMAGE] = Form_Processing_Unit_Strategy_Image_->main_box;
+	ha::Structure_Main_->Form_Popup_View_Popup_Setting_->Page_Strategys_[ha_def::processing_unit_strategy::IMAGE] = Form_Processing_Unit_Strategy_Image_->main_box;
 
 
     return 0;
@@ -177,6 +177,20 @@ int Initial()
 //---------------------------------------------------------------------------
 int Close()
 {
+	ha::Form_Popup_View_Popup_Item_->box_item->Parent = NULL;
+
+	ha::Form_Popup_View_Popup_Item_->item_rect_text_box->Parent = NULL;
+
+	ha::Form_Popup_View_Popup_Item_->item_rect_image_box->Parent = NULL;
+    //
+	Form_Processing_Unit_Base_Base_->main_box->Parent = NULL;
+
+	Form_Processing_Unit_Region_Rectangle_->main_box->Parent = NULL;
+
+	Form_Processing_Unit_Strategy_Text_->main_box->Parent = NULL;
+
+	Form_Processing_Unit_Strategy_Image_->main_box->Parent = NULL;
+
     return 0;
 
 }

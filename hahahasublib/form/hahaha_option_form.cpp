@@ -22,7 +22,14 @@
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma resource "*.dfm"
+// 要這樣加，編輯器才會出現，應該是Bug
+#if defined(DESIGNED_DFM)
+	#pragma resource "*.dfm"                // 讓 IDE 找得到設計檔
+#else
+	#pragma resource "hahaha_option_form.dfm"
+#endif
+
+//#pragma resource "*.dfm"
 Thahaha_form_option *hahaha_form_option;
 //---------------------------------------------------------------------------
 __fastcall Thahaha_form_option::Thahaha_form_option(TComponent* Owner)

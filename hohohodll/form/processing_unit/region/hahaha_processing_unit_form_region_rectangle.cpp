@@ -6,7 +6,14 @@
 #include "hahaha_processing_unit_form_region_rectangle.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma resource "*.dfm"
+// 要這樣加，編輯器才會出現，應該是Bug
+#if defined(DESIGNED_DFM)
+	#pragma resource "*.dfm"                // 讓 IDE 找得到設計檔
+#else
+	#pragma resource "hahaha_processing_unit_form_region_rectangle.dfm"
+#endif
+
+//#pragma resource "*.dfm"
 Thahaha_form_processing_unit_region_rectangle *hahaha_form_processing_unit_region_rectangle;
 //---------------------------------------------------------------------------
 __fastcall Thahaha_form_processing_unit_region_rectangle::Thahaha_form_processing_unit_region_rectangle(TComponent* Owner)

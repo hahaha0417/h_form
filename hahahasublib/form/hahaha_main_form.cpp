@@ -31,7 +31,16 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
-#pragma resource "*.dfm"
+// 要這樣加，編輯器才會出現，應該是Bug
+#if defined(DESIGNED_DFM)
+	#pragma resource "*.dfm"                // 讓 IDE 找得到設計檔
+#else
+	#pragma resource "hahaha_main_form.dfm"
+#endif
+
+//#pragma resource "*.dfm"
+
+
 
 Thahaha_form_main *hahaha_form_main;
 //---------------------------------------------------------------------------
@@ -216,6 +225,8 @@ halib_def::result Thahaha_form_main::Set_Pointer(
     return halib_def::result::SUCCESS;
 }
 //---------------------------------------------------------------------------
+
+
 
 
 

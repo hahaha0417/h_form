@@ -53,7 +53,14 @@
 #include "hahaha_popup_view_popup_form.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma resource "*.dfm"
+// 要這樣加，編輯器才會出現，應該是Bug
+#if defined(DESIGNED_DFM)
+	#pragma resource "*.dfm"                // 讓 IDE 找得到設計檔
+#else
+	#pragma resource "hahaha_popup_view_popup_form.dfm"
+#endif
+
+//#pragma resource "*.dfm"
 Thahaha_form_popup_view_popup *hahaha_form_popup_view_popup;
 //---------------------------------------------------------------------------
 __fastcall Thahaha_form_popup_view_popup::Thahaha_form_popup_view_popup(TComponent* Owner)

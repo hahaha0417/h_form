@@ -21,7 +21,7 @@ class hahaha_image_view_base : public hahahalib::hahaha_image_view
 {
 public:
 	hahaha_image_view_base();
-	~hahaha_image_view_base();
+	virtual ~hahaha_image_view_base();
 
 	hahaha_image_view_base(const hahaha_image_view_base& hivb);
     hahaha_image_view_base(hahaha_image_view_base&& hivb) noexcept;

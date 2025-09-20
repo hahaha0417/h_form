@@ -163,6 +163,7 @@ int hahaha_structure_main::Reset()
 	}
 	if(Form_Image_View_.get() == NULL)
 	{
+
 		Form_Image_View_.reset(new Thahaha_image_view_form(NULL));
 	}
 
@@ -268,6 +269,7 @@ halib_def::result hahaha_structure_main::Set_Structure(
         Structure_Main_,
         Structure_Sub_
     );
+
 
     Painter_Information_->Set_Structure(
         Structure_Main_,

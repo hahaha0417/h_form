@@ -11,7 +11,19 @@
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-
+#include <command\hahaha_command_main_ha.h>
+#include <command\hahaha_command_sub_ha.h>
+//---------------------------------------------------------------------------
+#include <dll\hahaha_load_dll.h>
+#include <post\hahaha_post_package.h>
+//---------------------------------------------------------------------------
+#include "hahaha_command_main_ha.h"
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+#include <structure\hahaha_structure_main.h>
+#include <structure\hahaha_structure_sub.h>
+#include <pointer\hahaha_pointer_main.h>
+#include <pointer\hahaha_pointer_sub.h>
 
 
 //---------------------------------------------------------------------------
@@ -191,7 +203,7 @@ int Initial(Thahaha_form_main* form_main)
     //---------------------------------------------------------------------------
     // ³]©w
     //---------------------------------------------------------------------------
-    ha::Structure_Main_ = Structure_Main_Ha_.get();
+	ha::Structure_Main_ = Structure_Main_Ha_.get();
     ha::Structure_Sub_ = Structure_Sub_Ha_.get();
     ha::Pointer_Main_ = Pointer_Main_Ha_.get();
     ha::Pointer_Sub_ = Pointer_Sub_Ha_.get();
@@ -246,7 +258,7 @@ int Initial(Thahaha_form_main* form_main)
 
 
 
-    
+
     //-------------------------------------
     //
     //-------------------------------------
@@ -301,13 +313,16 @@ int Initial(Thahaha_form_main* form_main)
     );
     ha::Parameter_Deal_Setting_Ha_->Set_Pointer(
         Pointer_Main_,
-        Pointer_Sub_
+		Pointer_Sub_
     );
+
+
 
 	//---------------------------------------------------------------------------
     // Image_View
 	//---------------------------------------------------------------------------
-	ha::Structure_Main_->Form_Image_View_->Set_Image_View((hahaha::hahaha_image_view_base*)ha::Structure_Main_->Image_View_.get());
+
+	ha::Structure_Main_->Form_Image_View_->Set_Image_View(ha::Structure_Main_->Image_View_.get());
 
 	ha::Structure_Main_->Image_View_->View_Thumbnail_Interpolation_ = halib_def::image_view_view_thumbnail_interpolation::NEAREST;
 	ha::Structure_Main_->Image_View_->View_Direction_ = halib_def::image_view_view_direction::NORMAL;
@@ -315,7 +330,7 @@ int Initial(Thahaha_form_main* form_main)
 	ha::Structure_Main_->Image_View_->Is_View_Scroll_ = true;
 	//
 	// ha::Bitmap_Argb_->Resize(1920, 1080);
-	f_lib::png::Load(L"C:\\Users\\hahaha\\Desktop\\ttt\\4K.png", *ha::Structure_Main_->Bitmap_Argb_);
+	f_lib::png::Load(L"D:\\desktop\\ttt\\4K.png", *ha::Structure_Main_->Bitmap_Argb_);
 
 	ha::Structure_Main_->Image_View_->Bitmap_ = ha::Structure_Main_->Bitmap_Argb_.get();
 	ha::Structure_Main_->Image_View_->Is_View_Thumbnail_ = false;
@@ -389,11 +404,14 @@ int Close()
 //---------------------------------------------------------------------------
 int Close_Plugin()
 {
-    ha::Pointer_Main_->Command_Main_->Close();
+	ha::Pointer_Main_->Command_Main_->Close();
 
-   	
+	for (auto& item: ha::Structure_Main_->Dlls_)
+	{
+		item.second->Close();
+    }
 
-    return 0;
+	return 0;
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------

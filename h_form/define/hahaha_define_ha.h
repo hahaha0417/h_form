@@ -73,6 +73,11 @@ extern std::unique_ptr<hahaha::hahaha_system_setting_ha> System_Setting_Ha_;
 extern std::unique_ptr<hahaha::hahaha_option_ha> Option_Ha_;
 extern std::unique_ptr<hahaha::hahaha_setting_ha> Setting_Ha_;
 //---------------------------------------------------------------------------
+extern std::unique_ptr<hahaha::hahaha_structure_main>  Structure_Main_Ha_;
+extern std::unique_ptr<hahaha::hahaha_structure_sub>  Structure_Sub_Ha_;
+extern std::unique_ptr<hahaha::hahaha_pointer_main>  Pointer_Main_Ha_;
+extern std::unique_ptr<hahaha::hahaha_pointer_sub>  Pointer_Sub_Ha_;
+//---------------------------------------------------------------------------
 extern std::unique_ptr<hahaha::hahaha_command_main_ha> Command_Main_Ha_;
 extern std::unique_ptr<hahaha::hahaha_command_sub_ha> Command_Sub_Ha_;
 //---------------------------------------------------------------------------

@@ -33,8 +33,10 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Skia.hpp>
 //---------------------------------------------------------------------------
+#include <form\hahaha_main_form.h>
 
-
+//---------------------------------------------------------------------------
+//#pragma resource "*.dfm"
 //Application->CreateForm(__classid(Thahaha_form_main), &hahaha_form_main);
 //---------------------------------------------------------------------------
 
@@ -47,12 +49,9 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 
 		Application->MainFormOnTaskBar = true;
 
-        Application->CreateForm(__classid(Thahaha_form_main), &hahaha_form_main);
-
-
-
-
+		Application->CreateForm(__classid(Thahaha_form_main), &hahaha_form_main);
 		ha::Initial(hahaha_form_main);
+
         //---------------------------------------------------------------------------
 
         //---------------------------------------------------------------------------
@@ -77,6 +76,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
         }
 		//---------------------------------------------------------------------------
 
+
         // Dll Plugin
         ha::Pointer_Main_->System_Setting_->Folder_Plugin_ = L"D:\\hahaha\\work\\h_form\\dll";
 
@@ -85,14 +85,12 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 
 
         //---------------------------------------------------------------------------
-        ha::Pointer_Main_->Form_Main_ = hahaha_form_main;
+		ha::Pointer_Main_->Form_Main_ = hahaha_form_main;
         //---------------------------------------------------------------------------
         ha::Structure_Main_->Form_System_Setting_->Parameter_Mapping(halib_def::parameter_mapping_type::PARAMETER_TO_FIELD);
         ha::Structure_Main_->Form_Option_->Parameter_Mapping(halib_def::parameter_mapping_type::PARAMETER_TO_FIELD);
         ha::Structure_Main_->Form_Popup_->Parameter_Mapping(halib_def::parameter_mapping_type::PARAMETER_TO_FIELD);
-        //---------------------------------------------------------------------------
-
-
+//        //---------------------------------------------------------------------------
 
 		Application->Run();
 

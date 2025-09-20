@@ -295,7 +295,7 @@ halib_def::result hahaha_parameter_deal_setting_ha::Mapping(
 	hahahalib::hahaha_parameter_deal_xml_node& root
 )
 {
-    root.Name_ = L"H_Form";
+	root.Name_ = L"H_Form";
 	root.Reset();
 
     std::vector<std::wstring> node_names_;
@@ -336,10 +336,10 @@ halib_def::result hahaha_parameter_deal_setting_ha::Mapping(
 			L"Name", halib_def::xml_type::VALUE, halib_def::type_variable::WSTRING, (void*)&ha::Pointer_Main_->Setting_->Scenes_[i]->Name_
         );
 
-        ha::Pointer_Main_->Setting_->Scenes_[i]->Mapping(xml, node_names_, root);
+		ha::Pointer_Main_->Setting_->Scenes_[i]->Mapping(xml, node_names_, root);
 
         node_names_.pop_back();
-    }
+	}
 
     node_names_.pop_back();
 
