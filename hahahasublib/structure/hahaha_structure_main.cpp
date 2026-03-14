@@ -34,6 +34,9 @@
 #include <painter\hahaha_painter_information.h>
 #include <painter\hahaha_painter_view.h>
 //---------------------------------------------------------------------------
+#include <information\hahaha_information_webcam.h>
+#include <information\hahaha_information_monitor.h>
+#include <information\hahaha_information_process.h>
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -124,7 +127,11 @@ void hahaha_structure_main::Move(hahaha_structure_main&& hsm) noexcept
     //---------------------------------------------------------------------------
     Bitmap_Argb_ = std::move(hsm.Bitmap_Argb_);
     //---------------------------------------------------------------------------
-
+    // 設備
+    //---------------------------------------------------------------------------
+    Information_Webcam_ = std::move(hsm.Information_Webcam_);
+    Information_Monitor_ = std::move(hsm.Information_Monitor_);
+    Information_Process_ = std::move(hsm.Information_Process_);
     //---------------------------------------------------------------------------
     // Dll
     //----------------------------------------
@@ -242,7 +249,18 @@ int hahaha_structure_main::Reset()
 
 	}
     //---------------------------------------------------------------------------
-
+	if(Information_Webcam_.get() == NULL)
+	{
+		Information_Webcam_.reset(new hahahalib::hahaha_information_webcam());
+	}
+	if(Information_Monitor_.get() == NULL)
+	{
+		Information_Monitor_.reset(new hahahalib::hahaha_information_monitor());
+	}
+	if(Information_Process_.get() == NULL)
+	{
+		Information_Process_.reset(new hahahalib::hahaha_information_process());
+	}
 
 
 	//---------------------------------------------------------------------------
@@ -391,6 +409,15 @@ halib_def::result hahaha_structure_main::Set_Pointer(
     return halib_def::result::SUCCESS;
 }
 //---------------------------------------------------------------------------
+int hahaha_structure_main::Search_All()
+{
+    // 搜尋資訊
+    Structure_Main_->Information_Monitor_->Get_All();
+    Structure_Main_->Information_Process_->Get_All();
+    Structure_Main_->Information_Webcam_->Get_All();
+
+    return 0;
+}
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------

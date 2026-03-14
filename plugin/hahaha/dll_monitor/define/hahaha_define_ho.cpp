@@ -109,9 +109,9 @@ int Initial()
 
     //
 
-    ha::Structure_Main_->Factory_Processing_Unit_Bases_[ha_def::factory_processing_unit_base::PLUGIN_HAHAHA_FORM] = Factory_Processing_Unit_Base_Ha_.get();
-    ha::Structure_Main_->Factory_Processing_Unit_Regions_[ha_def::factory_processing_unit_region::PLUGIN_HAHAHA_FORM] = Factory_Processing_Unit_Region_Ha_.get();
-    ha::Structure_Main_->Factory_Processing_Unit_Strategys_[ha_def::factory_processing_unit_strategy::PLUGIN_HAHAHA_FORM] = Factory_Processing_Unit_Strategy_Ha_.get();
+    ha::Structure_Main_->Factory_Processing_Unit_Bases_[ha_def::factory_processing_unit_base::PLUGIN_HAHAHA_MONITOR] = Factory_Processing_Unit_Base_Ha_.get();
+    ha::Structure_Main_->Factory_Processing_Unit_Regions_[ha_def::factory_processing_unit_region::PLUGIN_HAHAHA_MONITOR] = Factory_Processing_Unit_Region_Ha_.get();
+    ha::Structure_Main_->Factory_Processing_Unit_Strategys_[ha_def::factory_processing_unit_strategy::PLUGIN_HAHAHA_MONITOR] = Factory_Processing_Unit_Strategy_Ha_.get();
 
     ha::Form_Popup_View_Popup_Item_->box_item->Parent = ha::Structure_Main_->Form_Popup_View_Popup_->box_main_list_1;
     ha::Form_Popup_View_Popup_Item_->box_item->Align = alTop;

@@ -6,11 +6,10 @@
         <MainSource>h_form.cpp</MainSource>
         <AppType>Application</AppType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <Platform Condition="'$(Platform)'==''">Win64x</Platform>
         <ProjectName Condition="'$(ProjectName)'==''">h_form</ProjectName>
         <TargetedPlatforms>1048579</TargetedPlatforms>
-        <CC_Suffix Condition="'$(CC_Suffix)'==''">c</CC_Suffix>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -93,7 +92,7 @@
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
         <SanitizedProjectName>h_form</SanitizedProjectName>
-        <IncludePath>..\..\..\hahaha\hahahalib\hahahavcllib\image_view\;..\hahahasublib\view\form\view\;..\hahahasublib\view\form\scene\;..\hahahasublib\form\popup\;..\hahahasublib\form\;system_setting\;command\;setting\;parameter_deal_setting\;parameter_deal_option\;parameter_deal_system_setting\;define\;option\;parameter_deal_ini_model\;$(hahahalib)\hahahalib;$(hahahalib)\hahahatestlib;$(hahahalib)\hahahavcllib;$(hahahalib)\hahahadumplib;$(hahahalib)\hahahagarbagelib;$(hahahalib)\hahaharecyclelib;$(hahaha)\include;$(hahaha)\include\iconv;$(hahahalib)\hahahavcllib\image_view;$(h_form)\hahahasublib;$(h_form)\hahahasub2lib;$(h_form)\hahahasublib\form;$(hahaha)\include\ipp;$(hahaha)\include\ipp\ipp;$(IncludePath)</IncludePath>
+        <IncludePath>thread\;..\..\..\hahaha\hahahalib\hahahavcllib\image_view\;..\hahahasublib\view\form\view\;..\hahahasublib\view\form\scene\;..\hahahasublib\form\popup\;..\hahahasublib\form\;system_setting\;command\;setting\;parameter_deal_setting\;parameter_deal_option\;parameter_deal_system_setting\;define\;option\;parameter_deal_ini_model\;$(hahahalib)\hahahalib;$(hahahalib)\hahahatestlib;$(hahahalib)\hahahavcllib;$(hahahalib)\hahahadumplib;$(hahahalib)\hahahagarbagelib;$(hahahalib)\hahaharecyclelib;$(hahaha)\include;$(hahaha)\include\iconv;$(hahahalib)\hahahavcllib\image_view;$(h_form)\hahahasublib;$(h_form)\hahahasub2lib;$(h_form)\hahahasublib\form;$(hahaha)\include\ipp;$(hahaha)\include\ipp\ipp;$(IncludePath)</IncludePath>
         <ILINK_LibraryPath>..\..\..\hahaha\hahahalib\hahahavcllib\image_view\;..\hahahasublib\view\form\view\;..\hahahasublib\view\form\scene\;..\hahahasublib\form\popup\;..\hahahasublib\form\;$(h_form)\hahahasublib\form;system_setting\;command\;setting\;parameter_deal_setting\;parameter_deal_option\;parameter_deal_system_setting\;processing_unit\region\rectangle\;form\processing_unit\strategy\;form\processing_unit\region\;form\processing_unit\base\;form\popup\;factory\processing_unit\form\;processing_unit\form\base\;processing_unit\form\strategy\;processing_unit\form\region\;processing_unit\form\;processing_unit\base\form\;processing_unit\base\;factory\processing_unit\;factory\;processing_unit\;processing_unit\strategy\;processing_unit\region\;form\;painter\;parameter_deal_xml_model\;thread_pool\;thread\;model\;define\;option\;parameter_deal_ini_model\;parameter_deal_ini\;D:\hahaha\project\test\;$(hahaha)\lib\$(Platform);$(hahaha_work)\hahahalib\$(Platform)\$(Config);$(hahahalib)\hahahavcllib\image_view;$(hahaha)\lib\$(Platform)\ipp;$(hahaha_work)\h_form\lib\$(Platform)\$(Config);$(h_form)\hahahasub2lib\form;$(h_form)\hahahasublib\form\popup;$(h_form)\hahahasublib\view\form\view;$(h_form)\hahahasublib\resource\form;$(h_form)\hahahasublib\view\form\scene;$(hahaha_temp)\h_form\hahahasublib\$(Platform)\$(Config);$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <BCC_AddProjectDirToIncludePath>true</BCC_AddProjectDirToIncludePath>
         <VerInfo_Locale>1028</VerInfo_Locale>
@@ -178,14 +177,14 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi;vclwinx.bpi;bindengine.bpi</LinkPackageImports>
-        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\parameter_mapping\;D:\hahaha\hahaha\hahahalib\hahahavcllib\parameter_mapping\base\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
+        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\parameter_mapping\;D:\hahaha\hahaha\hahahalib\hahahavcllib\parameter_mapping\base\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;D:\hahaha\hahaha\hahahalib\hahahalib\information\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\form\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64x)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi;vclwinx.bpi;bindengine.bpi</LinkPackageImports>
-        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\form\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\xml\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
+        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\form\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\xml\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\;D:\hahaha\hahaha\hahahalib\hahahalib\capture\webcam\;D:\hahaha\hahaha\hahahalib\hahahalib\shape\;D:\hahaha\hahaha\hahahalib\hahahalib\image_process\wrap_affine\;D:\hahaha\hahaha\hahahalib\hahahalib\bitmap\;D:\hahaha\hahaha\hahahalib\hahahalib\ui\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -249,6 +248,10 @@
             <DependentOn>system_setting\hahaha_system_setting_ha.h</DependentOn>
             <BuildOrder>9</BuildOrder>
         </CppCompile>
+        <CppCompile Include="thread\hahaha_thread_command_ui_ha.cpp">
+            <DependentOn>thread\hahaha_thread_command_ui_ha.h</DependentOn>
+            <BuildOrder>12</BuildOrder>
+        </CppCompile>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -275,12 +278,7 @@
                 <Source>
                     <Source Name="MainSource">h_form.cpp</Source>
                 </Source>
-                <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k370.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp370.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k370.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp370.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                </Excluded_Packages>
+                <Excluded_Packages/>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="5">
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">

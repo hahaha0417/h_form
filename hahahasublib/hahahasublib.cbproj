@@ -4,12 +4,11 @@
         <ProjectVersion>20.3</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <Platform Condition="'$(Platform)'==''">Win64x</Platform>
         <ProjectName Condition="'$(ProjectName)'==''">hahahasublib</ProjectName>
         <TargetedPlatforms>1048579</TargetedPlatforms>
         <AppType>StaticLibrary</AppType>
-        <CC_Suffix Condition="'$(CC_Suffix)'==''">c</CC_Suffix>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -322,6 +321,10 @@
         <CppCompile Include="system_setting\hahaha_system_setting.cpp">
             <DependentOn>system_setting\hahaha_system_setting.h</DependentOn>
             <BuildOrder>12</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="thread\hahaha_thread_command_ui.cpp">
+            <DependentOn>thread\hahaha_thread_command_ui.h</DependentOn>
+            <BuildOrder>51</BuildOrder>
         </CppCompile>
         <CppCompile Include="view\form\scene\hahaha_view_form_scene.cpp">
             <Form>hahaha_form_view_scene</Form>

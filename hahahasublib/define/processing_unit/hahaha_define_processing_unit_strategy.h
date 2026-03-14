@@ -22,6 +22,7 @@ enum class hahaha_define_processing_unit_strategy
     // plugin_hahaha 1000 ~ 9999
     PLUGIN_HAHAHA_FORM = 1000,
     PLUGIN_HAHAHA_MONITOR = 1001,
+    PLUGIN_HAHAHA_WEBCAM = 1002,
 };
 
 

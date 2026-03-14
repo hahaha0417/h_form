@@ -45,6 +45,7 @@ class hahaha_structure_sub;
 class hahaha_pointer_main;
 class hahaha_pointer_sub;
 //
+class hahaha_thread_command_ui_ha;
 
 //---------------------------------------------------------------------------
 
@@ -80,6 +81,8 @@ extern std::unique_ptr<hahaha::hahaha_pointer_sub>  Pointer_Sub_Ha_;
 //---------------------------------------------------------------------------
 extern std::unique_ptr<hahaha::hahaha_command_main_ha> Command_Main_Ha_;
 extern std::unique_ptr<hahaha::hahaha_command_sub_ha> Command_Sub_Ha_;
+//---------------------------------------------------------------------------
+extern std::unique_ptr<hahaha::hahaha_thread_command_ui_ha> Command_UI_Ha_;
 //---------------------------------------------------------------------------
 // «ü¼Ð
 //---------------------------------------------------------------------------

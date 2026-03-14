@@ -42,7 +42,10 @@ class Thahaha_form_popup_view_popup_setting;
 namespace hahahalib
 {
 //---------------------------------------------------------------------------
-
+//---------------------------------------------------------------------------
+class hahaha_information_webcam;
+class hahaha_information_monitor;
+class hahaha_information_process;
 //---------------------------------------------------------------------------
 } // hahahalib
 //---------------------------------------------------------------------------
@@ -75,7 +78,6 @@ class hahaha_load_dll;
 class hahaha_factory_processing_unit_base;
 class hahaha_factory_processing_unit_strategy;
 class hahaha_factory_processing_unit_region;
-//---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -140,7 +142,11 @@ public:
     //---------------------------------------------------------------------------
     std::unique_ptr<halib::bitmap_alloc_argb> Bitmap_Argb_;
     //---------------------------------------------------------------------------
-
+    // 設備
+    //---------------------------------------------------------------------------
+    std::unique_ptr<hahahalib::hahaha_information_webcam> Information_Webcam_;
+    std::unique_ptr<hahahalib::hahaha_information_monitor> Information_Monitor_;
+    std::unique_ptr<hahahalib::hahaha_information_process> Information_Process_;
     //---------------------------------------------------------------------------
     // Dll
     //----------------------------------------
@@ -169,6 +175,8 @@ public:
     hahaha::hahaha_pointer_sub* Pointer_Sub_;
 	//---------------------------------------------------------------------------
 public:
+    // 找所有資訊，設備
+	int Search_All();
 public:
 public:
 public:

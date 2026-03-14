@@ -104,6 +104,7 @@ void __fastcall Thahaha_form_main::FormShow(TObject *Sender)
         {
             Pointer_Main_->Setting_->Save(dir_name_);
         }
+        Structure_Main_->Search_All();
         // 載入初始化
         Pointer_Main_->Setting_->Load_Initial();
 
@@ -181,6 +182,28 @@ void __fastcall Thahaha_form_main::FormClose(TObject *Sender, TCloseAction &Acti
 	std::vector<std::unique_ptr<hahaha::hahaha_view_scene>>().swap(Pointer_Main_->Setting_->Scenes_);
 
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thahaha_form_main::On_Message_UI(TMessage& message)
+{
+    switch (message.Msg) {
+
+        case MESSAGE_UI:
+		{
+            std::function<void()>* fn_ = (std::function<void()>*)message.LParam;
+            (*fn_)();   // 執行 callback
+            delete fn_; // 釋放記憶體
+
+
+			break;
+        }
+        default:
+        {
+            TForm::WndProc(message);  // Default handling
+        }
+
+    }
 }
 //---------------------------------------------------------------------------
 

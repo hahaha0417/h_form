@@ -72,7 +72,10 @@ void hahaha_pointer_main::Copy(const hahaha_pointer_main& hpm)
     //---------------------------------------------------------------------------
     Command_Main_ = hpm.Command_Main_;
 	Command_Sub_ = hpm.Command_Sub_;
+    //---------------------------------------------------------------------------
+    Command_UI_ = hpm.Command_UI_;
 
+    //---------------------------------------------------------------------------
 
     Structure_Main_ = hpm.Structure_Main_;
     Structure_Sub_ = hpm.Structure_Sub_;
@@ -96,7 +99,10 @@ void hahaha_pointer_main::Move(hahaha_pointer_main&& hpm) noexcept
     //---------------------------------------------------------------------------
     Command_Main_ = hpm.Command_Main_;
 	Command_Sub_ = hpm.Command_Sub_;
+    //---------------------------------------------------------------------------
+    Command_UI_ = hpm.Command_UI_;
 
+    //---------------------------------------------------------------------------
 
     Structure_Main_ = hpm.Structure_Main_;
     Structure_Sub_ = hpm.Structure_Sub_;
@@ -123,7 +129,10 @@ int hahaha_pointer_main::Reset()
     //---------------------------------------------------------------------------
     Command_Main_ = nullptr;
 	Command_Sub_ = nullptr;
+    //---------------------------------------------------------------------------
+    Command_UI_ = nullptr;
 
+    //---------------------------------------------------------------------------
 
     Structure_Main_ = nullptr;
     Structure_Sub_ = nullptr;

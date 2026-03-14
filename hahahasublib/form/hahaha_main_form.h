@@ -19,7 +19,8 @@
 #include <define\hahaha_define_result.h>
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-#define MESSAGE_EDIT_FORM_SHOW (WM_USER + 1000)
+#define MESSAGE_EDIT_FORM_SHOW (WM_USER + 1001)
+#define MESSAGE_UI (WM_USER + 1000)
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 namespace hahaha
@@ -60,9 +61,11 @@ private:	// User declarations
 public:		// User declarations
 	__fastcall Thahaha_form_main(TComponent* Owner);
 public:
+    void __fastcall On_Message_UI(TMessage& message);
     void __fastcall On_Message(TMessage& message);
 
     BEGIN_MESSAGE_MAP
+        MESSAGE_HANDLER(MESSAGE_UI, TMessage, On_Message_UI)
     	MESSAGE_HANDLER(MESSAGE_EDIT_FORM_SHOW, TMessage, On_Message)
     END_MESSAGE_MAP(TForm)
 public:

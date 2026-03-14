@@ -24,10 +24,13 @@
         <Projects Include="dll_hehehe\dll_hehehe.cbproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="dll_form\dll_form.cbproj">
+        <Projects Include="dll_monitor\dll_monitor.cbproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="dll_monitor\dll_monitor.cbproj">
+        <Projects Include="dll_webcam\dll_webcam.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dll_form\dll_form.cbproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -101,15 +104,6 @@
     <Target Name="dll_hehehe:Make">
         <MSBuild Projects="dll_hehehe\dll_hehehe.cbproj" Targets="Make"/>
     </Target>
-    <Target Name="dll_form">
-        <MSBuild Projects="dll_form\dll_form.cbproj"/>
-    </Target>
-    <Target Name="dll_form:Clean">
-        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Clean"/>
-    </Target>
-    <Target Name="dll_form:Make">
-        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Make"/>
-    </Target>
     <Target Name="dll_monitor">
         <MSBuild Projects="dll_monitor\dll_monitor.cbproj"/>
     </Target>
@@ -119,14 +113,32 @@
     <Target Name="dll_monitor:Make">
         <MSBuild Projects="dll_monitor\dll_monitor.cbproj" Targets="Make"/>
     </Target>
+    <Target Name="dll_webcam">
+        <MSBuild Projects="dll_webcam\dll_webcam.cbproj"/>
+    </Target>
+    <Target Name="dll_webcam:Clean">
+        <MSBuild Projects="dll_webcam\dll_webcam.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll_webcam:Make">
+        <MSBuild Projects="dll_webcam\dll_webcam.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll_form">
+        <MSBuild Projects="dll_form\dll_form.cbproj"/>
+    </Target>
+    <Target Name="dll_form:Clean">
+        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll_form:Make">
+        <MSBuild Projects="dll_form\dll_form.cbproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="hahahasublib;hahahasub2lib;h_form;hahahadll;hehehedll;hohohodll;dll_hehehe;dll_form;dll_monitor"/>
+        <CallTarget Targets="hahahasublib;hahahasub2lib;h_form;hahahadll;hehehedll;hohohodll;dll_hehehe;dll_monitor;dll_webcam;dll_form"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="hahahasublib:Clean;hahahasub2lib:Clean;h_form:Clean;hahahadll:Clean;hehehedll:Clean;hohohodll:Clean;dll_hehehe:Clean;dll_form:Clean;dll_monitor:Clean"/>
+        <CallTarget Targets="hahahasublib:Clean;hahahasub2lib:Clean;h_form:Clean;hahahadll:Clean;hehehedll:Clean;hohohodll:Clean;dll_hehehe:Clean;dll_monitor:Clean;dll_webcam:Clean;dll_form:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="hahahasublib:Make;hahahasub2lib:Make;h_form:Make;hahahadll:Make;hehehedll:Make;hohohodll:Make;dll_hehehe:Make;dll_form:Make;dll_monitor:Make"/>
+        <CallTarget Targets="hahahasublib:Make;hahahasub2lib:Make;h_form:Make;hahahadll:Make;hehehedll:Make;hohohodll:Make;dll_hehehe:Make;dll_monitor:Make;dll_webcam:Make;dll_form:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
