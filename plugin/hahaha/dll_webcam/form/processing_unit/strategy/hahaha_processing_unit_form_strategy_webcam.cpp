@@ -52,6 +52,7 @@ __fastcall Thahaha_form_processing_unit_strategy_webcam::Thahaha_form_processing
     resolution_box->Color = (TColor)RGB(210,255,210);
     fps_box->Color = (TColor)RGB(210,255,210);
 	direction_box->Color = (TColor)RGB(210,255,210);
+	flip_vertical_box->Color = (TColor)RGB(210,255,210);
 
     BodyBox->BorderStyle = bsNone;
 
@@ -63,6 +64,7 @@ __fastcall Thahaha_form_processing_unit_strategy_webcam::Thahaha_form_processing
     resolution_box->BorderStyle = bsNone;
     fps_box->BorderStyle = bsNone;
 	direction_box->BorderStyle = bsNone;
+	flip_vertical_box->BorderStyle = bsNone;
 
 	view_box->BorderStyle = bsNone;
 
@@ -131,12 +133,21 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::check_fix_ratioCli
 void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_directionChange(TObject *Sender)
 
 {
-    if(Is_Update)
-    {
+	if(Is_Update)
+	{
         return;
     }
 
 	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+	ha::Image_View_Ha_->View_Direction_ = (halib_def::image_view_view_direction)(combo_box_direction->ItemIndex + 1);
+    ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
+	// 硂柑琌琌本更Bitmap本更紇钩
+	ha::Image_View_Ha_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
+	ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
+	ha::Image_View_Ha_->Is_Repaint_ = true;
+	ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+	ha::Image_View_Ha_->Repaint();
 }
 //---------------------------------------------------------------------------
 
@@ -222,6 +233,8 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 		return;
 	}
 
+    ha::Pointer_Main_->Select_View_->Get_Parameter();
+
     hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
 
 
@@ -235,23 +248,37 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 		}
 		else
 		{
-            int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
+			int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
 
 			Webcam_Direct_Show_->Open(combo_box_camera->ItemIndex,
-                strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+				strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
 				strategy_->Format_[combo_box_resolution->ItemIndex].Height_
 			);
 
 			if(Webcam_Direct_Show_->Is_Open_)
 			{
-                ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+				ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
 					strategy_->Format_[combo_box_resolution->ItemIndex].Height_
 				);
-                Webcam_Direct_Show_->Flip_ = true;
+				Webcam_Direct_Show_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
 				Webcam_Direct_Show_->Start();
-                ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_.get();
+				ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_.get();
 
-            	ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
+				ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+					(double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+				);
+
+				ha::Image_View_Ha_->Background_Color_ = TColor(RGB(60, 60, 60));
+
+				ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
+				// 硂柑琌琌本更Bitmap本更紇钩
+				ha::Image_View_Ha_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
+				ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
+				ha::Image_View_Ha_->Is_Repaint_ = true;
+				ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+				ha::Image_View_Ha_->Repaint();
+
+				ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
 
 			}
 
@@ -284,12 +311,14 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_cameraChange(TObject *Sender)
 
 {
-    if(Is_Update)
+	if(Is_Update)
 	{
 		return;
 	}
 
-    if(combo_box_camera->ItemIndex >= 0 )
+	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+	if(combo_box_camera->ItemIndex >= 0 )
 	{
 		hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
 
@@ -347,6 +376,15 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_testClick(T
 	if(Webcam_Direct_Show_->Is_Open_)
 	{
 		Webcam_Direct_Show_->Grab(*ha::Bitmap_Argb_Ha_);
+        // 硂柑琌琌本更Bitmap本更紇钩
+		ha::Image_View_Ha_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
+		ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+			(double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+		);
+
+		ha::Image_View_Ha_->Background_Color_ = TColor(RGB(60, 60, 60));
+
+		ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
 		ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
 		ha::Image_View_Ha_->Is_Repaint_ = true;
 		ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
@@ -354,6 +392,116 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_testClick(T
 
 
 	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_resolutionChange(TObject *Sender)
+
+{
+    if(Is_Update)
+	{
+		return;
+	}
+
+	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+    if(Webcam_Direct_Show_->Is_Open_)
+	{
+        hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
+
+		int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
+		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Close();
+
+		Webcam_Direct_Show_->Stop();
+		Webcam_Direct_Show_->Close();
+
+
+		Webcam_Direct_Show_->Open(combo_box_camera->ItemIndex,
+			strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+			strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+		);
+
+		if(Webcam_Direct_Show_->Is_Open_)
+		{
+			ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+				strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+			);
+			Webcam_Direct_Show_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
+			Webcam_Direct_Show_->Start();
+			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_.get();
+
+			// 硂柑琌琌本更Bitmap本更紇钩
+			ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+				(double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+			);
+
+			ha::Image_View_Ha_->Background_Color_ = TColor(RGB(60, 60, 60));
+
+			ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
+			ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
+			ha::Image_View_Ha_->Is_Repaint_ = true;
+			ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+			ha::Image_View_Ha_->Repaint();
+
+			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
+
+		}
+
+
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_fpsChange(TObject *Sender)
+
+{
+	if(Is_Update)
+	{
+		return;
+	}
+
+	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+    if(Webcam_Direct_Show_->Is_Open_)
+	{
+		int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
+
+		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Close();
+
+		ha::Thread_Command_Webcam_Ha_->Wait();
+
+
+
+		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
+
+
+
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_flip_verticalChange(TObject *Sender)
+
+{
+	if(Is_Update)
+	{
+		return;
+	}
+
+	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+	if(Webcam_Direct_Show_->Is_Open_)
+	{
+
+		Webcam_Direct_Show_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
+
+
+		ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
+		ha::Image_View_Ha_->Is_Repaint_ = true;
+		ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+		ha::Image_View_Ha_->Repaint();
+	}
+
 }
 //---------------------------------------------------------------------------
 

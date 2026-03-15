@@ -110,11 +110,13 @@ void hahaha_processing_unit_strategy_webcam::Move(hahaha_processing_unit_strateg
     Direction_ = hpusw.Direction_;
 
     Width_ = hpusw.Width_;
-    Height_ = hpusw.Height_;
+	Height_ = hpusw.Height_;
 
     Bitmap_Load_ = std::move(hpusw.Bitmap_Load_);
     Bitmap_ = std::move(hpusw.Bitmap_);
 	Bitmap_Thumbnail_ = std::move(hpusw.Bitmap_Thumbnail_);
+
+	Flip_Vertical_ = hpusw.Flip_Vertical_;
 
 	Format_ = std::move(Format_);
 
@@ -132,10 +134,13 @@ int hahaha_processing_unit_strategy_webcam::Reset()
     Enabled_ = 0;
     Resolution_ = 0;
     Fps_ = 0;
-    Direction_ = ha_def::processing_unit_strategy_direction::NORMAL;
+	Direction_ = ha_def::processing_unit_strategy_direction::NORMAL;
+	Flip_Vertical_ = false;
 
     Width_ = 0;
-    Height_ = 0;
+	Height_ = 0;
+
+	Flip_Vertical_ = 0;
 
     Is_Deal_ = false;
 
@@ -167,12 +172,13 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Set_Parameter()
 
     ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_camera->ItemIndex = Camera_;
     ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_enabled->ItemIndex = Enabled_;
-    ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_resolution->ItemIndex = Resolution_;
-    ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_fps->ItemIndex = Fps_;
-    ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_direction->ItemIndex = (int)Direction_;
+	ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_resolution->ItemIndex = Resolution_;
+	ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_fps->ItemIndex = Fps_;
+	ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_direction->ItemIndex = (int)Direction_;
+	ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_flip_vertical->ItemIndex = Flip_Vertical_;
 
     Width_ = 0;
-    Height_ = 0;
+	Height_ = 0;
 
     ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = false;
     return halib_def::result::SUCCESS;
@@ -188,6 +194,7 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Get_Parameter()
     Resolution_ = ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_resolution->ItemIndex;
     Fps_ = ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_fps->ItemIndex;
     Direction_ = (ha_def::processing_unit_strategy_direction)ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_direction->ItemIndex;
+	Flip_Vertical_ = ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_flip_vertical->ItemIndex;
 
 	Width_ = 0;
     Height_ = 0;

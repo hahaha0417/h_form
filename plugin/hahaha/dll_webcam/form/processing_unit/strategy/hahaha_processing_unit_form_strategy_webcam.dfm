@@ -17709,6 +17709,7 @@ object hahaha_form_processing_unit_strategy_webcam: Thahaha_form_processing_unit
                 Font.Style = []
                 ParentFont = False
                 TabOrder = 0
+                OnChange = combo_box_resolutionChange
               end
             end
             object fps_box: TScrollBox
@@ -17741,6 +17742,7 @@ object hahaha_form_processing_unit_strategy_webcam: Thahaha_form_processing_unit
                 Font.Style = []
                 ParentFont = False
                 TabOrder = 0
+                OnChange = combo_box_fpsChange
               end
             end
             object view_box: TScrollBox
@@ -17751,13 +17753,49 @@ object hahaha_form_processing_unit_strategy_webcam: Thahaha_form_processing_unit
               TabOrder = 5
             end
             object button_test: TButton
-              Left = 136
+              Left = 48
               Top = 367
               Width = 73
               Height = 46
               Caption = #28204#35430
               TabOrder = 6
               OnClick = button_testClick
+            end
+            object flip_vertical_box: TScrollBox
+              Left = 136
+              Top = 367
+              Width = 437
+              Height = 66
+              Color = clBtnFace
+              Ctl3D = False
+              ParentColor = False
+              ParentCtl3D = False
+              TabOrder = 7
+              object Label5: TLabel
+                Left = 40
+                Top = 24
+                Width = 52
+                Height = 15
+                Caption = #22402#30452#32763#36681
+              end
+              object combo_box_flip_vertical: TComboBox
+                Left = 120
+                Top = 11
+                Width = 281
+                Height = 38
+                Style = csDropDownList
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -21
+                Font.Name = 'Segoe UI'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+                OnChange = combo_box_flip_verticalChange
+                Items.Strings = (
+                  #27491#24120
+                  #22402#30452#32763#36681)
+              end
             end
           end
           object Memo1: TMemo

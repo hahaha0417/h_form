@@ -77,6 +77,9 @@ __published:	// IDE-managed Components
 	TButton *button_camera_refresh;
 	TScrollBox *view_box;
 	TButton *button_test;
+	TScrollBox *flip_vertical_box;
+	TLabel *Label5;
+	TComboBox *combo_box_flip_vertical;
 	void __fastcall button_minClick(TObject *Sender);
 	void __fastcall button_maxClick(TObject *Sender);
 	void __fastcall button_closeClick(TObject *Sender);
@@ -87,6 +90,9 @@ __published:	// IDE-managed Components
 	void __fastcall combo_box_enabledChange(TObject *Sender);
 	void __fastcall combo_box_cameraChange(TObject *Sender);
 	void __fastcall button_testClick(TObject *Sender);
+	void __fastcall combo_box_resolutionChange(TObject *Sender);
+	void __fastcall combo_box_fpsChange(TObject *Sender);
+	void __fastcall combo_box_flip_verticalChange(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall Thahaha_form_processing_unit_strategy_webcam(TComponent* Owner);

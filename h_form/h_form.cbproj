@@ -184,7 +184,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi;vclwinx.bpi;bindengine.bpi</LinkPackageImports>
-        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\form\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\xml\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\;D:\hahaha\hahaha\hahahalib\hahahalib\capture\webcam\;D:\hahaha\hahaha\hahahalib\hahahalib\shape\;D:\hahaha\hahaha\hahahalib\hahahalib\image_process\wrap_affine\;D:\hahaha\hahaha\hahahalib\hahahalib\bitmap\;D:\hahaha\hahaha\hahahalib\hahahalib\ui\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
+        <Debugger_DebugSourcePath>D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\;D:\hahaha\hahaha\hahahalib\hahahavcllib\image_view\form\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\xml\;D:\hahaha\hahaha\hahahalib\hahahalib\parameter_deal\;D:\hahaha\hahaha\hahahalib\hahahalib\capture\webcam\;D:\hahaha\hahaha\hahahalib\hahahalib\shape\;D:\hahaha\hahaha\hahahalib\hahahalib\image_process\wrap_affine\;D:\hahaha\hahaha\hahahalib\hahahalib\bitmap\;D:\hahaha\hahaha\hahahalib\hahahalib\ui\;D:\hahaha\hahaha\hahahalib\hahahalib\thread_pool\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>

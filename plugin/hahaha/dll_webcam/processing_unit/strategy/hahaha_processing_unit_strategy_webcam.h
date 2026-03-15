@@ -76,7 +76,8 @@ public:
     int Camera_;
     int Enabled_;
     int Resolution_;
-    int Fps_;
+	int Fps_;
+	int Flip_Vertical_;
     ha_def::processing_unit_strategy_direction Direction_;
 
     int Width_;
