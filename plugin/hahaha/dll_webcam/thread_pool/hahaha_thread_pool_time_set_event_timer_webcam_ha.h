@@ -14,7 +14,7 @@ namespace hahahalib
 {
 //---------------------------------------------------------------------------
 class hahaha_thread_command_command;
-class hahaha_capture_webcam_direct_show;
+class hahaha_capture_webcam_direct_show_origin;
 
 
 //---------------------------------------------------------------------------
@@ -42,7 +42,7 @@ public:
 public:
 	virtual int Handle();
 public:
-    hahahalib::hahaha_capture_webcam_direct_show* Webcam_;
+    hahahalib::hahaha_capture_webcam_direct_show_origin* Webcam_;
 public:
 
 };

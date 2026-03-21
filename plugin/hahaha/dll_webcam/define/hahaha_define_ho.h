@@ -71,6 +71,7 @@ extern std::unique_ptr<hahaha::hahaha_image_view_base> Image_View_Ha_;
 extern std::unique_ptr<Thahaha_image_view_form> Form_Image_View_Ha_;
 //---------------------------------------------------------------------------
 extern std::unique_ptr<halib::bitmap_alloc_argb> Bitmap_Argb_Ha_;
+extern std::unique_ptr<halib::bitmap_alloc_yuy2> Bitmap_Yuy2_Ha_;
 //---------------------------------------------------------------------------
 // thread
 //---------------------------------------------------------------------------

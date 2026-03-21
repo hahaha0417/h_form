@@ -25,7 +25,7 @@ namespace hahahalib
 {
 //---------------------------------------------------------------------------
 class hahaha_thread_command_command;
-class hahaha_capture_webcam_direct_show;
+class hahaha_capture_webcam_direct_show_origin;
 
 
 //---------------------------------------------------------------------------
@@ -44,7 +44,7 @@ enum class hahaha_thread_command_command_command
 //---------------------------------------------------------------------------
 struct hahaha_thread_command_parameter_webcam
 {
-    hahahalib::hahaha_capture_webcam_direct_show* Webcam_ = NULL;
+    hahahalib::hahaha_capture_webcam_direct_show_origin* Webcam_ = NULL;
 };
 //---------------------------------------------------------------------------
 class hahaha_thread_command_webcam_ha : public hahahalib::hahaha_thread_command
@@ -65,8 +65,8 @@ public:
 	virtual int Handle(std::unique_ptr<hahahalib::hahaha_thread_command_command>& command);
 
 public:
-	int On_Grab(hahahalib::hahaha_capture_webcam_direct_show* webcam);
-	int Add_Grab(hahahalib::hahaha_capture_webcam_direct_show* webcam);
+	int On_Grab(hahahalib::hahaha_capture_webcam_direct_show_origin* webcam);
+	int Add_Grab(hahahalib::hahaha_capture_webcam_direct_show_origin* webcam);
 public:
 public:
 	std::queue<std::unique_ptr<halib::bitmap_alloc_argb>> Bitmap_Buffer_;

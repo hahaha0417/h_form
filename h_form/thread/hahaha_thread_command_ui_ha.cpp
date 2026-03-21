@@ -114,7 +114,7 @@ int hahaha_thread_command_ui_ha::Handle(std::unique_ptr<hahahalib::hahaha_thread
 //---------------------------------------------------------------------------
 int hahaha_thread_command_ui_ha::On_Sync(std::function<void()>* callback)
 {
-    UI_->Send_Message(MESSAGE_UI, 0, callback);
+	UI_->Send_Message(MESSAGE_UI, 0, callback);
 
 
 

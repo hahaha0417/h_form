@@ -24,7 +24,7 @@
 #include <command\hahaha_command_main.h>
 #include <command\hahaha_command_sub.h>
 //---------------------------------------------------------------------------
-#include <capture\webcam\hahaha_capture_webcam_direct_show.h>
+#include <capture\webcam\hahaha_capture_webcam_direct_show_origin_ha.h>
 //---------------------------------------------------------------------------
 #include <image_view\hahaha_form_image_view.h>
 #include <image_view\hahaha_image_view_base.h>
@@ -58,6 +58,7 @@ std::unique_ptr<hahaha::hahaha_image_view_base> Image_View_Ha_;
 std::unique_ptr<Thahaha_image_view_form> Form_Image_View_Ha_;
 //---------------------------------------------------------------------------
 std::unique_ptr<halib::bitmap_alloc_argb> Bitmap_Argb_Ha_;
+std::unique_ptr<halib::bitmap_alloc_yuy2> Bitmap_Yuy2_Ha_;
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -154,6 +155,10 @@ int Initial()
 	if(Bitmap_Argb_Ha_.get() == NULL)
 	{
 		Bitmap_Argb_Ha_.reset(new halib::bitmap_alloc_argb());
+	}
+    if(Bitmap_Yuy2_Ha_.get() == NULL)
+	{
+		Bitmap_Yuy2_Ha_.reset(new halib::bitmap_alloc_yuy2());
 	}
 
     //---------------------------------------------------------------------------

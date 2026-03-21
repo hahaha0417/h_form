@@ -168,7 +168,7 @@ int hahaha_processing_unit_strategy_webcam::Reset()
 //---------------------------------------------------------------------------
 halib_def::result hahaha_processing_unit_strategy_webcam::Set_Parameter()
 {
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = true;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = true;
 
     ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_camera->ItemIndex = Camera_;
     ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_enabled->ItemIndex = Enabled_;
@@ -180,13 +180,13 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Set_Parameter()
     Width_ = 0;
 	Height_ = 0;
 
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = false;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = false;
     return halib_def::result::SUCCESS;
 }
 //---------------------------------------------------------------------------
 halib_def::result hahaha_processing_unit_strategy_webcam::Get_Parameter()
 {
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = true;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = true;
 
 
     Camera_ = ha::Form_Processing_Unit_Strategy_Webcam_->combo_box_camera->ItemIndex;
@@ -201,7 +201,7 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Get_Parameter()
 
 
     ha::Structure_Main_->Image_View_->Is_Invalidate_View_Image_ = true;
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = false;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = false;
     Is_Deal_ = false;
 
 
@@ -2602,7 +2602,7 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Load_Initial()
 {
     halib_def::result result = halib_def::result::SUCCESS;
 
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = true;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = true;
 
     bool Ratio_Fix_ = true;
 
@@ -2614,7 +2614,7 @@ halib_def::result hahaha_processing_unit_strategy_webcam::Load_Initial()
 
 
 	Structure_Main_->Image_View_->Is_Invalidate_View_Image_ = true;
-    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update = false;
+    ha::Form_Processing_Unit_Strategy_Webcam_->Is_Update_ = false;
     Is_Deal_ = false;
 
     return result;

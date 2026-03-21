@@ -25,8 +25,13 @@
 namespace hahahalib
 {
 class hahaha_capture_webcam_direct_show_item;
-class hahaha_capture_webcam_direct_show;
 };
+
+namespace hahaha
+{
+class hahaha_capture_webcam_direct_show_origin_ha;
+};
+
 
 
 //---------------------------------------------------------------------------
@@ -102,9 +107,9 @@ public:
 public:
 	std::vector<hahahalib::hahaha_capture_webcam_direct_show_item> Format_;
 
-	std::unique_ptr<hahahalib::hahaha_capture_webcam_direct_show> Webcam_Direct_Show_;
+	std::unique_ptr<hahaha::hahaha_capture_webcam_direct_show_origin_ha> Webcam_Direct_Show_Origin_;
 public:
-    bool Is_Update;
+    bool Is_Update_;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE Thahaha_form_processing_unit_strategy_webcam *hahaha_form_processing_unit_strategy_webcam;
