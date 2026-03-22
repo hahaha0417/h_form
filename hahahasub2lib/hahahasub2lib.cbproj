@@ -52,7 +52,7 @@
         <SanitizedProjectName>hahahasub2lib</SanitizedProjectName>
         <_TCHARMapping>char</_TCHARMapping>
         <IncludePath>command\;structure\;pointer\;form\;painter\;parameter_deal_xml_model\;thread_pool\;thread\;model\;define\;option\;parameter_deal_ini_model\;$(hahahalib)\hahahalib;$(hahahalib)\hahahatestlib;$(hahahalib)\hahahavcllib;$(hahahalib)\hahahadumplib;$(hahahalib)\hahahagarbagelib;$(hahahalib)\hahaharecyclelib;$(hahaha)\include;$(hahaha)\include\iconv;$(hahahalib)\hahahavcllib\image_view;$(h_form)\hahahasublib;$(h_form)\hahahasub2lib;$(hahaha)\include\ipp;$(hahaha)\include\ipp\ipp;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>form\;painter\;parameter_deal_xml_model\;thread_pool\;thread\;model\;define\;option\;parameter_deal_ini_model\;parameter_deal_ini\;D:\hahaha\project\test\;$(hahaha)\lib\$(Platform);$(hahaha_work)\hahahalib\$(Platform)\$(Config);$(hahahalib)\hahahavcllib\image_view;$(hahaha)\lib\$(Platform)\ipp;$(h_form)\hahahasublib\form;$(h_form)\hahahasub2lib\form;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>form\;painter\;parameter_deal_xml_model\;thread_pool\;thread\;model\;define\;option\;parameter_deal_ini_model\;parameter_deal_ini\;D:\hahaha\project\test\;$(hahaha)\lib\$(Platform);$(hahaha_work)\hahahalib\$(Platform)\$(Config);$(hahahalib)\hahahavcllib\image_view;$(hahaha)\lib\$(Platform)\ipp;$(h_form)\hahahasublib\form;$(h_form)\hahahasub2lib\form;$(hahaha_work)\hahahaISAlib\$(Platform)\$(Config);$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <BCC_AddProjectDirToIncludePath>true</BCC_AddProjectDirToIncludePath>
         <VerInfo_Locale>1028</VerInfo_Locale>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>

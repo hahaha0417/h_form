@@ -179,16 +179,46 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_camera_refr
 	{
         strategy_->Format_.clear();
 		CoInitializeEx(NULL, COINIT_MULTITHREADED);
-		hahahalib::hahaha_capture_webcam_direct_show direct_show_;
-		direct_show_.Open(0, 1280, 720);
-		direct_show_.List_Format(strategy_->Format_);
+		// ----------------------------------------------------------
+        std::vector<hahahalib::hahaha_capture_webcam_direct_show_item> format_temp_;
+		strategy_->Format_.clear();
+
+		hahahalib::hahaha_capture_webcam_direct_show_origin direct_show_;
+		direct_show_.Open(combo_box_camera->ItemIndex, 1280, 720);
+		direct_show_.List_Format(format_temp_);
+
+        std::copy_if(format_temp_.begin(), format_temp_.end(), std::back_inserter(strategy_->Format_),
+            [](auto& x){
+                return x.Sub_Type_ == MEDIASUBTYPE_YUY2;
+            }
+        );
 
 		std::sort(strategy_->Format_.begin(), strategy_->Format_.end(),
-			[](const hahahalib::hahaha_capture_webcam_direct_show_item& a, const hahahalib::hahaha_capture_webcam_direct_show_item& b)
-			{
-				return a.Width_ > b.Width_;
-			}
-		);
+            [](const auto& a, const auto& b)
+            {
+                // 1) 秆猂钩计
+                int pixels_a = a.Width_ * a.Height_;
+                int pixels_b = b.Width_ * b.Height_;
+                if (pixels_a != pixels_b)
+                    return pixels_a > pixels_b;
+
+                // 2) FPS
+                if (a.Fps_ != b.Fps_)
+                    return a.Fps_ > b.Fps_;
+
+                // 3) Α纔抖
+                auto score = [](const GUID& g)
+                {
+                    if (g == MEDIASUBTYPE_YUY2) return 3;
+                    if (g == MEDIASUBTYPE_MJPG) return 2;
+                    if (g == MEDIASUBTYPE_RGB24) return 1;
+                    return 0;
+                };
+
+                return score(a.Sub_Type_) > score(b.Sub_Type_);
+            }
+        );
+        // ----------------------------------------------------------
 
 		int m = strategy_->Format_.size();
 
@@ -196,10 +226,7 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_camera_refr
 		combo_box_resolution->Clear();
 		for(int i = 0; i < m; i++)
 		{
-			if(strategy_->Format_[i].Sub_Type_ != MEDIASUBTYPE_YUY2)
-			{
-				continue;
-			}
+
 			combo_box_resolution->Items->Add(strategy_->Format_[i].Description_.c_str());
 		}
 		combo_box_resolution->Items->EndUpdate();
@@ -237,6 +264,9 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 	{
 		return;
 	}
+    Is_Update_ = true;
+
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
 
     ha::Pointer_Main_->Select_View_->Get_Parameter();
 
@@ -257,7 +287,8 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 
 			Webcam_Direct_Show_Origin_->Open(combo_box_camera->ItemIndex,
 				strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
-				strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+				strategy_->Format_[combo_box_resolution->ItemIndex].Height_,
+				strategy_->Format_[combo_box_resolution->ItemIndex].Fps_
 			);
 
 			if(Webcam_Direct_Show_Origin_->Is_Open_)
@@ -269,22 +300,25 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 					strategy_->Format_[combo_box_resolution->ItemIndex].Height_
 				);
 				Webcam_Direct_Show_Origin_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
-				Webcam_Direct_Show_Origin_->Start();
+
 				ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_Origin_.get();
 
-				ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
-					(double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
-				);
+	
 
-				ha::Image_View_Ha_->Background_Color_ = TColor(RGB(60, 60, 60));
+				ha::Structure_Main_->Image_View_->Background_Color_ = TColor(RGB(60, 60, 60));
+                ha::Structure_Main_->Image_View_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
+                ha::Structure_Main_->Image_View_->Is_View_Scroll_ = true;
+                ha::Structure_Main_->Image_View_->Is_View_Bitmap_Full_ = true;
+                ha::Structure_Main_->Image_View_->Is_View_Thumbnail_ = false;
+                ha::Structure_Main_->Image_View_->Is_Repaint_ = true;
+                ha::Structure_Main_->Image_View_->Is_Repaint_View_Image_ = true;
+                ha::Structure_Main_->Image_View_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+                    (double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+                );
 
-				ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
-				// 硂柑琌琌本更Bitmap本更紇钩
-				ha::Image_View_Ha_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
-				ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
-				ha::Image_View_Ha_->Is_Repaint_ = true;
-				ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
-				ha::Image_View_Ha_->Repaint();
+                ha::Structure_Main_->Image_View_->Repaint();
+
+                Webcam_Direct_Show_Origin_->Start();
 
 				ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
 
@@ -311,7 +345,9 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_enabledC
 		{
 		}
 	}
+    Webcam_Direct_Show_Origin_->Mutex_->Un_Lock();
 
+    Is_Update_ = false;
 	
 }
 //---------------------------------------------------------------------------
@@ -323,26 +359,54 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_cameraCh
 	{
 		return;
 	}
+    Is_Update_ = true;
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
 
 	ha::Pointer_Main_->Select_View_->Get_Parameter();
 
 	if(combo_box_camera->ItemIndex >= 0 )
 	{
 		hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
-
+        // ----------------------------------------------------------
+        std::vector<hahahalib::hahaha_capture_webcam_direct_show_item> format_temp_;
 		strategy_->Format_.clear();
 
-		hahahalib::hahaha_capture_webcam_direct_show direct_show_;
+		hahahalib::hahaha_capture_webcam_direct_show_origin direct_show_;
 		direct_show_.Open(combo_box_camera->ItemIndex, 1280, 720);
-		direct_show_.List_Format(strategy_->Format_);
+		direct_show_.List_Format(format_temp_);
+
+        std::copy_if(format_temp_.begin(), format_temp_.end(), std::back_inserter(strategy_->Format_),
+            [](auto& x){
+                return x.Sub_Type_ == MEDIASUBTYPE_YUY2;
+            }
+        );
 
 		std::sort(strategy_->Format_.begin(), strategy_->Format_.end(),
-			[](const hahahalib::hahaha_capture_webcam_direct_show_item& a, const hahahalib::hahaha_capture_webcam_direct_show_item& b)
-			{
-				return a.Width_ > b.Width_;
-			}
-		);
+            [](const auto& a, const auto& b)
+            {
+                // 1) 秆猂钩计
+                int pixels_a = a.Width_ * a.Height_;
+                int pixels_b = b.Width_ * b.Height_;
+                if (pixels_a != pixels_b)
+                    return pixels_a > pixels_b;
 
+                // 2) FPS
+                if (a.Fps_ != b.Fps_)
+                    return a.Fps_ > b.Fps_;
+
+                // 3) Α纔抖
+                auto score = [](const GUID& g)
+                {
+                    if (g == MEDIASUBTYPE_YUY2) return 3;
+                    if (g == MEDIASUBTYPE_MJPG) return 2;
+                    if (g == MEDIASUBTYPE_RGB24) return 1;
+                    return 0;
+                };
+
+                return score(a.Sub_Type_) > score(b.Sub_Type_);
+            }
+        );
+        // ----------------------------------------------------------
 
 		int m = strategy_->Format_.size();
 
@@ -350,10 +414,7 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_cameraCh
 		combo_box_resolution->Clear();
 		for(int i = 0; i < m; i++)
 		{
-			if(strategy_->Format_[i].Sub_Type_ != MEDIASUBTYPE_YUY2)
-			{
-				continue;
-			}
+
 			combo_box_resolution->Items->Add(strategy_->Format_[i].Description_.c_str());
 		}
 		combo_box_resolution->Items->EndUpdate();
@@ -375,12 +436,17 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_cameraCh
 		direct_show_.Close();
 
 	}
+
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
+
+    Is_Update_ = false;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_testClick(TObject *Sender)
 
 {
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
 	if(Webcam_Direct_Show_Origin_->Is_Open_)
 	{
 		Webcam_Direct_Show_Origin_->Grab(*ha::Bitmap_Yuy2_Ha_);
@@ -397,7 +463,7 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_testClick(T
             halib::roi(0, 0, bitmap_temp_yvyu_.Width_ - 1, bitmap_temp_yvyu_.Height_ - 1)
         );
 
-        halib_image_composite::color::YUV422_To_ARGB(
+        halib_image::color::YUV422_To_ARGB(
             bitmap_temp_yvyu_,
             halib::roi(0, 0, bitmap_temp_yvyu_.Width_ - 1, bitmap_temp_yvyu_.Height_ - 1),
             *ha::Bitmap_Argb_Ha_,
@@ -417,11 +483,14 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::button_testClick(T
 		ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
 		ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
 		ha::Image_View_Ha_->Is_Repaint_ = true;
-		ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+		ha::Image_View_Ha_->Is_Repaint_View_Image_ = true;
+        ha::Image_View_Ha_->Is_View_Bitmap_Full_ = true;
+
 		ha::Image_View_Ha_->Repaint();
 
 
 	}
+    Webcam_Direct_Show_Origin_->Mutex_->Un_Lock();
 }
 //---------------------------------------------------------------------------
 
@@ -432,6 +501,23 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_resoluti
 	{
 		return;
 	}
+    Is_Update_ = true;
+
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
+
+    {
+        hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
+
+        combo_box_fps->Items->BeginUpdate();
+        combo_box_fps->Clear();
+        for(int i = strategy_->Format_[combo_box_resolution->ItemIndex].Fps_; i > 0; i--)
+        {
+            combo_box_fps->Items->Add(std::to_wstring(i).c_str());
+        }
+        combo_box_fps->Items->EndUpdate();
+
+        combo_box_fps->ItemIndex = 0;
+    }
 
 	ha::Pointer_Main_->Select_View_->Get_Parameter();
 
@@ -448,16 +534,95 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_resoluti
 
 		Webcam_Direct_Show_Origin_->Open(combo_box_camera->ItemIndex,
 			strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
-			strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+			strategy_->Format_[combo_box_resolution->ItemIndex].Height_,
+            strategy_->Format_[combo_box_resolution->ItemIndex].Fps_
+		);
+
+
+
+		if(Webcam_Direct_Show_Origin_->Is_Open_)
+		{
+        int rrr = combo_box_resolution->ItemIndex;
+			ha::Bitmap_Yuy2_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+                strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+            );
+            ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+                strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+            );
+			Webcam_Direct_Show_Origin_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
+
+			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_Origin_.get();
+
+			// 硂柑琌琌本更Bitmap本更紇钩
+
+
+			ha::Structure_Main_->Image_View_->Background_Color_ = TColor(RGB(60, 60, 60));
+            ha::Structure_Main_->Image_View_->Bitmap_ = ha::Bitmap_Argb_Ha_.get();
+			ha::Structure_Main_->Image_View_->Is_View_Scroll_ = true;
+			ha::Structure_Main_->Image_View_->Is_View_Bitmap_Full_ = true;
+			ha::Structure_Main_->Image_View_->Is_View_Thumbnail_ = false;
+			ha::Structure_Main_->Image_View_->Is_Repaint_ = true;
+			ha::Structure_Main_->Image_View_->Is_Repaint_View_Image_ = true;
+            ha::Structure_Main_->Image_View_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+                (double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+            );
+
+			ha::Structure_Main_->Image_View_->Repaint();
+
+			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
+            Webcam_Direct_Show_Origin_->Start();
+		}
+
+
+	}
+
+    Webcam_Direct_Show_Origin_->Mutex_->Un_Lock();
+
+    Is_Update_ = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_fpsChange(TObject *Sender)
+
+{
+	if(Is_Update_)
+	{
+		return;
+	}
+    Is_Update_ = true;
+
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
+
+
+	ha::Pointer_Main_->Select_View_->Get_Parameter();
+
+    if(Webcam_Direct_Show_Origin_->Is_Open_)
+	{
+        hahaha::hahaha_processing_unit_strategy_webcam* strategy_ = (hahaha::hahaha_processing_unit_strategy_webcam*)ha::Pointer_Main_->Select_View_->Processing_Unit_->Processing_Unit_Strategy_;
+
+		int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
+		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Close();
+
+		Webcam_Direct_Show_Origin_->Stop();
+		Webcam_Direct_Show_Origin_->Close();
+
+
+		Webcam_Direct_Show_Origin_->Open(combo_box_camera->ItemIndex,
+			strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+			strategy_->Format_[combo_box_resolution->ItemIndex].Height_,
+            strategy_->Format_[combo_box_resolution->ItemIndex].Fps_
 		);
 
 		if(Webcam_Direct_Show_Origin_->Is_Open_)
 		{
-			ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
-				strategy_->Format_[combo_box_resolution->ItemIndex].Height_
-			);
+			ha::Bitmap_Yuy2_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+                strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+            );
+            ha::Bitmap_Argb_Ha_->Resize(strategy_->Format_[combo_box_resolution->ItemIndex].Width_,
+                strategy_->Format_[combo_box_resolution->ItemIndex].Height_
+            );
 			Webcam_Direct_Show_Origin_->Flip_ = combo_box_flip_vertical->ItemIndex == 0 ? false : true;
-			Webcam_Direct_Show_Origin_->Start();
+
 			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Webcam_ = Webcam_Direct_Show_Origin_.get();
 
 			// 硂柑琌琌本更Bitmap本更紇钩
@@ -471,42 +636,21 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_resoluti
 			ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
 			ha::Image_View_Ha_->Is_Repaint_ = true;
 			ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+            ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+                (double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+            );
 			ha::Image_View_Ha_->Repaint();
 
 			ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
-
+            Webcam_Direct_Show_Origin_->Start();
 		}
 
 
 	}
-}
-//---------------------------------------------------------------------------
 
-void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_fpsChange(TObject *Sender)
+    Webcam_Direct_Show_Origin_->Mutex_->Un_Lock();
 
-{
-	if(Is_Update_)
-	{
-		return;
-	}
-
-	ha::Pointer_Main_->Select_View_->Get_Parameter();
-
-    if(Webcam_Direct_Show_Origin_->Is_Open_)
-	{
-		int period_ = (int)(1000.0 / combo_box_fps->Text.ToInt());
-
-		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Close();
-
-		ha::Thread_Command_Webcam_Ha_->Wait();
-
-
-
-		ha::Thread_Pool_Time_Set_Event_Timer_Webcam_Ha_->Create(0, period_);
-
-
-
-	}
+    Is_Update_ = false;
 }
 //---------------------------------------------------------------------------
 
@@ -517,6 +661,9 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_flip_ver
 	{
 		return;
 	}
+    Is_Update_ = true;
+
+    Webcam_Direct_Show_Origin_->Mutex_->Lock();
 
 	ha::Pointer_Main_->Select_View_->Get_Parameter();
 
@@ -529,9 +676,14 @@ void __fastcall Thahaha_form_processing_unit_strategy_webcam::combo_box_flip_ver
 		ha::Image_View_Ha_->Is_View_Thumbnail_ = false;
 		ha::Image_View_Ha_->Is_Repaint_ = true;
 		ha::Image_View_Ha_->Is_Invalidate_View_Image_ = true;
+        ha::Image_View_Ha_->Image_Center_ = halib::point_double((double)(ha::Bitmap_Argb_Ha_->Width_ - 1 ) / 2,
+            (double)(ha::Bitmap_Argb_Ha_->Height_ - 1 ) / 2
+        );
 		ha::Image_View_Ha_->Repaint();
 	}
+    Is_Update_ = false;
 
+    Webcam_Direct_Show_Origin_->Mutex_->Un_Lock();
 }
 //---------------------------------------------------------------------------
 
